@@ -42,12 +42,13 @@ jobs:
         run: |       
           pac auth create --applicationId ${{ secrets.APP_ID }} --clientSecret '${{ secrets.CLIENT_SECRET }}' -t '${{ secrets.TENANT_ID }}'
           pac solution init --publisher-name '${{ github.event.inputs.publisher-name }}' --publisher-prefix  '${{ github.event.inputs.publisher-prefix }}' --outputDirectory '${{ github.event.inputs.solution-name }}'
+          ls -R
 
       # connect powerapps environment
 
       # create
       - name: generate import file
-        run: msbuild ${{ env.workingFolder }} /t:build /restore
+        run: msbuild ${{ github.event.inputs.solution-name }} /t:build /restore
 
       # deploy solution
       - name: deploy solution
