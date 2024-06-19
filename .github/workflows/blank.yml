@@ -41,7 +41,8 @@ jobs:
       - name: create solution
         run: |
           # pac auth clear
-          pac auth create --username '${{ secrets.username }}' --password '${{ secrets.userpw }}' -t ${{ secrets.TENANT_ID }} --environment "SkillboosterCCAPart22's Environment"
+          
+          pac auth create --applicationId ${{ secrets.APP_ID }} --clientSecret ${{ secrets.CLIENT_SECRET }} -t ${{ secrets.TENANT_ID }}"
           pac solution init --publisher-name ${{ github.event.inputs.publisher-name }} --publisher-prefix  ${{ github.event.inputs.publisher-prefix }} --outputDirectory ${{ github.event.inputs.solution-name }}
 
       # connect powerapps environment
