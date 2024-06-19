@@ -48,7 +48,10 @@ jobs:
 
       # create
       - name: generate import file
-        run: msbuild ${{ github.event.inputs.solution-name }} /t:build /restore
+        run: |
+          ls -R
+          echo "PWD : $PWD"
+          msbuild ${{ github.event.inputs.solution-name }} /t:build /restore
 
       # deploy solution
       - name: deploy solution
