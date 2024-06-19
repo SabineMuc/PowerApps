@@ -34,10 +34,8 @@ jobs:
       - name: install pac
         run: |
           npm -version
-          npm install npm@latest
+          npm install -g npm@8.18.0
           npm -version          
-          npm install gulp@latest
-          gulp -v
           npm install -g pac
 
       # create solution
