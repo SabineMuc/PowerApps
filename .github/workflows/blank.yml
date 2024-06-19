@@ -36,7 +36,7 @@ jobs:
           npm -version
           npm install npm@8.18.0
           npm -version          
-          npm install -g pac
+          dotnet tool install --global Microsoft.PowerApps.CLI.Tool
 
       # create solution
       - name: create solution
