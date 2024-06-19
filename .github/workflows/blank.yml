@@ -36,6 +36,7 @@ jobs:
           npm -version
           npm install npm@latest
           npm -version          
+          gulp -v
           npm install -g pac
 
       # create solution
