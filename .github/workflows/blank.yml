@@ -33,11 +33,7 @@ jobs:
       # install pac
       - name: install pac
         run: |
-          npm install -g n
-          sudo n 11.15.0
-          npm install gulp@^4.0
-          npm install
-          npm rebuild node-sass
+          npm -version
           npm install -g pac
 
       # create solution
