@@ -42,7 +42,8 @@ jobs:
         run: |       
           pac auth create --applicationId ${{ secrets.APP_ID }} --clientSecret '${{ secrets.CLIENT_SECRET }}' -t '${{ secrets.TENANT_ID }}'
           pac solution init --publisher-name '${{ github.event.inputs.publisher-name }}' --publisher-prefix  '${{ github.event.inputs.publisher-prefix }}' --outputDirectory '${{ github.event.inputs.solution-name }}'
-          ls -R
+          ls -R          
+          msbuild ${{ github.event.inputs.solution-name }} /t:build /restore
 
       # connect powerapps environment
 
