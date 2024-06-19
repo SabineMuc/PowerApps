@@ -33,9 +33,6 @@ jobs:
       # install pac
       - name: install pac
         run: |
-          npm -version
-          npm install npm@8.18.0
-          npm -version          
           dotnet tool install --global Microsoft.PowerApps.CLI.Tool
 
       # create solution
