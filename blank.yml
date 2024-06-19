@@ -58,9 +58,25 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
       
-      - name: Define a variable
-        id: define_var
-        run: echo "workingFolder=./solutions" >> $GITHUB_ENV
+      - name: Send greeting
+        run: echo "${{ github.event.inputs.message }} ${{ fromJSON('["", "🥳"]')[github.event.inputs.use-emoji == 'true'] }} ${{ github.event.inputs.name }}"
+      
+      - name: Send greeting
+        run: echo "${{ github.event.inputs}}"
+      
+      # Runs a single command using the runners shell
+      - name: Run a one-line script
+        run: echo Hello, world!
+        
+      # Runs a single command using the runners shell
+      - name: Run a one-line script
+        run: msbuild -version
+
+      # Runs a set of commands using the runners shell
+      - name: Run a multi-line script
+        run: |
+          echo Add other actions to build,
+          echo test, and deploy your project.
 
       # install pac
       - name: install pac
@@ -68,17 +84,11 @@ jobs:
 
       # create solution
       - name: create solution
-        run: pac solution init --publisher-name ${{ github.event.inputs.publisher-name }} --publisher-prefix ${{ github.event.inputs.publisher-prefix }} --solution-name ${{ github.event.inputs.solution-name }} --output-directory ${{ env.workingFolder }}
+        run: pac solution init --publisher-name ${{ github.event.inputs.publisher-name }} --publisher-prefix ${{ github.event.inputs.publisher-prefix }} --solution-name ${{ github.event.inputs.solution-name }} --output-directory "./solutions"
 
       # connect powerapps environment
 
-      # create
-      - name: generate import file
-        run: msbuild ${{ env.workingFolder }} /t:build /restore
-
       # deploy solution
-      - name: deploy solution
-        run: pac solution import --path .\${{ env.workingFolder }}\bin\Debug\${{ github.event.inputs.solution-name }}.zip
 
       # commit solution
       
