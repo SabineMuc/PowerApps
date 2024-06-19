@@ -38,7 +38,7 @@ jobs:
       # create solution
       - name: create solution
         run: |
-          pac auth clear
+          # pac auth clear
           pac auth create --kind CDS --url https://orga4a1a7e5.crm16.dynamics.com/ --name TestAlm -id skillboosterccapart22@mscloudguild.onmicrosoft.com -cs K)239788159394uk -t 475de339-34fc-4cdf-b8c7-8efff15e88b0
           # pac auth create -u ${{ vars.DATAVERSE_URL }} -id ${{ env.AZURE_CLIENT_ID }} -cs ${{ secrets.DATAVERSE_CLIENT_SECRET }} -t ${{ env.AZURE_TENANT_ID }}
           pac solution init --publisher-name ${{ github.event.inputs.publisher-name }} --publisher-prefix ${{ github.event.inputs.publisher-prefix }} --solution-name ${{ github.event.inputs.solution-name }} --output-directory ${{ env.workingFolder }}
