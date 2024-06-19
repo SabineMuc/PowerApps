@@ -42,7 +42,6 @@ jobs:
         run: |
           # pac auth clear
           pac auth create --applicationId ${{ secrets.APP_ID }} --clientSecret ${{ secrets.CLIENT_SECRET }} -t ${{ secrets.TENANT_ID }} --environment "${{ github.event.inputs.environment }}"
-          pac solution list
           pac solution init --publisher-name ${{ github.event.inputs.publisher-name }} --publisher-prefix ${{ github.event.inputs.publisher-prefix }} --solution-name ${{ github.event.inputs.solution-name }} --output-directory ${{ env.workingFolder }}
 
       # connect powerapps environment
