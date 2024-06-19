@@ -34,7 +34,7 @@ jobs:
       - name: install pac
         run: |
           npm -version
-          npm install -g npm@8.18.0
+          npm install npm@8.18.0
           npm -version          
           npm install -g pac
 
