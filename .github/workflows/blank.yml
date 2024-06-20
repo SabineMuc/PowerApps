@@ -14,17 +14,11 @@ on:
       solution-name: 
           required: true
       environment: 
-          required: true
-          
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+          required: true          
 jobs:
-  # This workflow contains a single job called "build"
   build:
-    # The type of runner that the job will run on
     runs-on: windows-latest
 
-    continue-on-error: true
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
@@ -39,23 +33,17 @@ jobs:
           dotnet tool install --global Microsoft.PowerApps.CLI.Tool
       - name: Add msbuild to PATH
         uses: microsoft/setup-msbuild@v2
+        
       # create solution
       - name: create solution
         run: |       
           pac auth create --applicationId ${{ secrets.APP_ID }} --clientSecret '${{ secrets.CLIENT_SECRET }}' -t '${{ secrets.TENANT_ID }}'
           pac solution init --publisher-name '${{ github.event.inputs.publisher-name }}' --publisher-prefix  '${{ github.event.inputs.publisher-prefix }}' --outputDirectory '${{ github.event.inputs.solution-name }}'
-          ls -R
-
-      # connect powerapps environment
 
       # create
       - name: generate import file
         run: |
           msbuild ${{ github.event.inputs.solution-name }} /t:build /restore
-
-      - name: check
-        run: |
-          ls -R
       
       # deploy solution
       - name: deploy solution
