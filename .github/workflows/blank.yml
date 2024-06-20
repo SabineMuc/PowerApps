@@ -67,7 +67,7 @@ jobs:
           } else {
             Write-Output "File does not exist"          
           }
-          pac solution import --path .\${{ env.workingFolder }}\bin\Debug\${{ github.event.inputs.solution-name }}.zip
+          pac solution import --path $filePath
 
       # commit solution
       
