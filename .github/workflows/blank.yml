@@ -55,7 +55,7 @@ jobs:
           pwd
           find $(pwd) -not -path '*/\.*' | sort
           msbuild -v
-          msbuild /home/runner/work/PowerApps/PowerApps/myTest/myTest.cdsproj /t:build /restore /p:Configuration=Release;PublishProfile=Production;DeployOnBuild=false
+          msbuild ${{ github.event.inputs.solution-name }} /t:build /restore
         continue-on-error: true
 
       - name: check
