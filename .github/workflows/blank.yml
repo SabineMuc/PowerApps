@@ -60,10 +60,12 @@ jobs:
       # deploy solution
       - name: deploy solution
         run: |
-          if (exist ./${{ github.event.inputs.solution-name }}/bin/Debug/${{ github.event.inputs.solution-name }}.zip) {
-              rem file exists
+          $filePath = "./${{ github.event.inputs.solution-name }}/bin/Debug/${{ github.event.inputs.solution-name }}.zip"
+          Write-Output $filePath
+          if (Test-Path $filePath) {
+            Write-Output "File exists"
           } else {
-              rem file doesn't exist
+            Write-Output "File does not exist"          
           }
           pac solution import --path .\${{ env.workingFolder }}\bin\Debug\${{ github.event.inputs.solution-name }}.zip
 
