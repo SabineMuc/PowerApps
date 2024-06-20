@@ -53,6 +53,7 @@ jobs:
           ls -R
           pwd
           find $(pwd) -not -path '*/\.*' | sort
+          msbuild -v
           msbuild /home/runner/work/PowerApps/PowerApps/myTest/myTest.cdsproj /t:build /restore /p:Configuration=Release;PublishProfile=Production;DeployOnBuild=false
         continue-on-error: true
 
