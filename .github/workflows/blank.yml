@@ -60,7 +60,7 @@ jobs:
       # deploy solution
       - name: deploy solution
         run: |
-          if exist ./${{ github.event.inputs.solution-name }}/bin/Debug/${{ github.event.inputs.solution-name }}.zip (
+          if (exist ./${{ github.event.inputs.solution-name }}/bin/Debug/${{ github.event.inputs.solution-name }}.zip) (
               rem file exists
           ) else (
               rem file doesn't exist
