@@ -60,11 +60,11 @@ jobs:
       # deploy solution
       - name: deploy solution
         run: |
-          if (exist ./${{ github.event.inputs.solution-name }}/bin/Debug/${{ github.event.inputs.solution-name }}.zip) (
+          if (exist ./${{ github.event.inputs.solution-name }}/bin/Debug/${{ github.event.inputs.solution-name }}.zip) {
               rem file exists
-          ) else (
+          } else {
               rem file doesn't exist
-          )
+          }
           pac solution import --path .\${{ env.workingFolder }}\bin\Debug\${{ github.event.inputs.solution-name }}.zip
 
       # commit solution
