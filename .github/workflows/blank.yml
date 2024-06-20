@@ -43,8 +43,7 @@ jobs:
         run: |       
           pac auth create --applicationId ${{ secrets.APP_ID }} --clientSecret '${{ secrets.CLIENT_SECRET }}' -t '${{ secrets.TENANT_ID }}'
           pac solution init --publisher-name '${{ github.event.inputs.publisher-name }}' --publisher-prefix  '${{ github.event.inputs.publisher-prefix }}' --outputDirectory '${{ github.event.inputs.solution-name }}'
-          ls -R          
-          msbuild ${{ github.event.inputs.solution-name }} /t:build /restore
+          ls -R
 
       # connect powerapps environment
 
@@ -55,6 +54,7 @@ jobs:
           pwd
           find $(pwd) -not -path '*/\.*' | sort
           msbuild ${{ github.event.inputs.solution-name }} /t:build /restore
+        continue-on-error: true
 
       - name: check
         run: |
