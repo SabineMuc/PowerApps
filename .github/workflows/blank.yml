@@ -53,7 +53,7 @@ jobs:
           ls -R
           pwd
           find $(pwd) -not -path '*/\.*' | sort
-          msbuild ${{ github.event.inputs.solution-name }} /t:build /restore
+          msbuild ${{ github.event.inputs.solution-name }} /t:build /restore /p:Configuration=Release;PublishProfile=Production;DeployOnBuild=false
         continue-on-error: true
 
       - name: check
