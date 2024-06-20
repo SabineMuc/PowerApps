@@ -51,22 +51,21 @@ jobs:
       # create
       - name: generate import file
         run: |
-          ls -R
-          pwd
-          find $(pwd) -not -path '*/\.*' | sort
-          msbuild -v
           msbuild ${{ github.event.inputs.solution-name }} /t:build /restore
-        continue-on-error: true
 
       - name: check
         run: |
           ls -R
-          pwd
-          find $(pwd) -not -path '*/\.*' | sort          
-
+      
       # deploy solution
       - name: deploy solution
-        run: pac solution import --path .\${{ env.workingFolder }}\bin\Debug\${{ github.event.inputs.solution-name }}.zip
+        run: |
+          if exist ./${{ github.event.inputs.solution-name }}/bin/Debug/${{ github.event.inputs.solution-name }}.zip (
+              rem file exists
+          ) else (
+              rem file doesn't exist
+          )
+          pac solution import --path .\${{ env.workingFolder }}\bin\Debug\${{ github.event.inputs.solution-name }}.zip
 
       # commit solution
       
