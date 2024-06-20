@@ -51,7 +51,7 @@ jobs:
       - name: generate import file
         run: |
           ls -R
-          echo "PWD : $PWD"
+          pwd
           find $(pwd) -maxdepth 1 -type f -not -path '*/\.*' | sort
           msbuild ${{ github.event.inputs.solution-name }} /t:build /restore
 
