@@ -50,7 +50,6 @@ jobs:
       - name: deploy solution
         run: |
           $filePath = "./${{ github.event.inputs.solution-name }}/bin/Debug/${{ github.event.inputs.solution-name }}.zip"
-          $filePath = ".\SampleSolution.zip"
           Write-Output $filePath
           if (Test-Path $filePath) {
             Write-Output "File exists"
