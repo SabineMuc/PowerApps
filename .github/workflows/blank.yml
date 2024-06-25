@@ -41,10 +41,6 @@ jobs:
       - name: generate import file
         run: |
           msbuild ${{ github.event.inputs.solution-name }} /t:build /restore
-
-      - name: pack solution
-        run: |
-          pac solution pack --zipfile .\SampleSolution.zip --folder '${{ github.event.inputs.solution-name }}'
       
       # deploy solution
       - name: deploy solution
