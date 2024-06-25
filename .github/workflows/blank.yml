@@ -22,17 +22,11 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
-      
-      - name: Define a variable
-        id: define_var
-        run: echo "workingFolder=./solutions" >> $GITHUB_ENV
 
       # install pac
       - name: install pac
         run: |
           dotnet tool install --global Microsoft.PowerApps.CLI.Tool
-      - name: Add msbuild to PATH
-        uses: microsoft/setup-msbuild@v2
         
       # create solution
       - name: create solution
