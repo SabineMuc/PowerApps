@@ -26,7 +26,10 @@ jobs:
       # install pac
       - name: install pac
         run: |
-          dotnet tool install --global Microsoft.PowerApps.CLI.Tool
+          dotnet tool install --global Microsoft.PowerApps.CLI.Tool      
+      # create solution
+      - name: Add msbuild to PATH
+        uses: microsoft/setup-msbuild@v2
         
       # create solution
       - name: create solution
@@ -38,11 +41,16 @@ jobs:
       - name: generate import file
         run: |
           msbuild ${{ github.event.inputs.solution-name }} /t:build /restore
+
+      - name: pack solution
+        run: |
+          pac solution pack --zipfile .\SampleSolution.zip --folder '${{ github.event.inputs.solution-name }}'
       
       # deploy solution
       - name: deploy solution
         run: |
           $filePath = "./${{ github.event.inputs.solution-name }}/bin/Debug/${{ github.event.inputs.solution-name }}.zip"
+          $filePath = ".\SampleSolution.zip"
           Write-Output $filePath
           if (Test-Path $filePath) {
             Write-Output "File exists"
