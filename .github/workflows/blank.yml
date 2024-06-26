@@ -61,7 +61,7 @@ jobs:
           git config --global user.email "Sabine.Franz@capgemini.com"
           git config --global user.name "Sabine"
           git add .
-          git commit
+          git commit -m "commit from pipeline"
           git push
           
       
