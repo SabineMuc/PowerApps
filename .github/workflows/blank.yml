@@ -14,7 +14,12 @@ on:
       solution-name: 
           required: true
       environment: 
-          required: false          
+          required: false         
+
+defaults:
+  run:
+    working-directory: ${{ github.event.inputs.solution-name }}
+    
 jobs:
   build:
     runs-on: windows-latest
@@ -55,5 +60,11 @@ jobs:
           pac solution import --path $filePath
 
       # commit solution
+      - name: commit solution
+        run: |
+          git add .
+          git commit
+          git push
+          
       
       
