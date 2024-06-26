@@ -58,10 +58,10 @@ jobs:
       # commit solution
       - name: commit solution
         run: |
-          git status
+          git config --global user.email "Sabine.Franz@capgemini.com"
+          git config --global user.name "Sabine"
           git add .
-          git commit -m "solution create from pipeline"
-          git fetch origin master
+          git commit -m "generate solution"
           git push origin HEAD:master
           
       
