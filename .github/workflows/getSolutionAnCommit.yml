@@ -48,7 +48,10 @@ jobs:
           }          
       - name: commit files
         run: |
+          git config --global user.email "Sabine.Franz@capgemini.com"
+          git config --global user.name "Sabine"
+          git pull
           git add .
-          git commit -m "Auto updating TODO.txt"
-          git push origin HEAD:master
+          git commit -m "generate solution"
+          git push origin main
 
