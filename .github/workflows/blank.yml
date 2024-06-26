@@ -61,6 +61,7 @@ jobs:
           dir
           git config --global user.email "Sabine.Franz@capgemini.com"
           git config --global user.name "Sabine"
+          git pull
           git add .
           git commit -m "generate solution"
           git push origin HEAD:master
