@@ -19,8 +19,6 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
-        with:
-          path: main
 
       # install pac
       - name: install pac
@@ -51,6 +49,7 @@ jobs:
           }          
       - name: commit files
         run: |
+          dir
           git config --global user.email "Sabine.Franz@capgemini.com"
           git config --global user.name "Sabine"
           git pull
