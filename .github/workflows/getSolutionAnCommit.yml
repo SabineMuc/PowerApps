@@ -3,6 +3,9 @@ name: Get_Solution_And_Commit
 on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
+    inputs:
+      solution-name: 
+        required: true
       dynamic_branch:
         description: Select branch
         required: true
@@ -29,7 +32,7 @@ jobs:
         run: |       
           pac auth create --applicationId ${{ secrets.APP_ID }} --clientSecret '${{ secrets.CLIENT_SECRET }}' -t '${{ secrets.TENANT_ID }}' --environment '${{ secrets.ENV }}'
           $workingFolder=".\prepSolution\"
-          $solutionName="TestImExSol"
+          $solutionName='${{ github.event.inputs.solution-name }}'
           $zipFile = ".\$solutionName\$solutionName.zip"
           
           pac solution export --name $solutionName --path .\$solutionName --overwrite
