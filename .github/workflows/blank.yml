@@ -14,7 +14,7 @@ on:
       solution-name: 
           required: true
       environment: 
-          required: true          
+          required: false          
 jobs:
   build:
     runs-on: windows-latest
