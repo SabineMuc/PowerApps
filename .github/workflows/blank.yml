@@ -64,7 +64,7 @@ jobs:
           git pull
           git add .
           git commit -m "generate solution"
-          git push origin HEAD:master
+          git push origin main
           
       
       
