@@ -18,3 +18,31 @@ jobs:
       - uses: actions/checkout@v4
         with:
           path: main
+
+      # get solution from environment and commit to environment
+      - name: create solution
+        run: |       
+          pac auth create --applicationId ${{ secrets.APP_ID }} --clientSecret '${{ secrets.CLIENT_SECRET }}' -t '${{ secrets.TENANT_ID }}' --environment '${{ secrets.ENV }}'
+          $workingFolder=".\prepSolution\"
+          $solutionName="TestImExSol"
+          $zipFile = ".\$solutionName\$solutionName.zip"
+          
+          pac solution export --name $solutionName --path .\$solutionName --overwrite
+          #unpack solution
+          pac solution unpack --zipfile $zipFile --folder $workingFolder
+          
+          $directory = "."
+          # Use Get-ChildItem to find all .msapp files
+          $msappFiles = Get-ChildItem -Path $directory -Recurse -Filter *.msapp
+          
+          # Iterate through each file and write the name to the console
+          foreach ($file in $msappFiles) {
+              $filePathWithoutExtension = [System.IO.Path]::Combine($file.DirectoryName, [System.IO.Path]::GetFileNameWithoutExtension($file.Name))
+              pac canvas unpack --msapp $file --sources "$filePathWithoutExtension"
+              Remove-Item $file.FullName -Force
+          }
+          git add $workingFolder
+          git commit
+          git push
+
+
