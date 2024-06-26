@@ -19,6 +19,11 @@ jobs:
         with:
           path: main
 
+      # install pac
+      - name: install pac
+        run: |
+          dotnet tool install --global Microsoft.PowerApps.CLI.Tool   
+          
       # get solution from environment and commit to environment
       - name: create solution
         run: |       
