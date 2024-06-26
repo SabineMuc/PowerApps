@@ -58,8 +58,10 @@ jobs:
       # commit solution
       - name: commit solution
         run: |
+          git status
           git add .
-          git commit -m "generate solution"
+          git commit -m "solution create from pipeline"
+          git fetch origin master
           git push origin HEAD:master
           
       
