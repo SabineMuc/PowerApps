@@ -60,6 +60,7 @@ jobs:
       # commit solution
       - name: commit solution
         run: |
+          dir
           git config --global user.email "Sabine.Franz@capgemini.com"
           git config --global user.name "Sabine"
           git add .
