@@ -29,7 +29,7 @@ jobs:
       - name: create solution
         run: |       
           pac auth create --applicationId ${{ secrets.APP_ID }} --clientSecret '${{ secrets.CLIENT_SECRET }}' -t '${{ secrets.TENANT_ID }}' --environment '${{ secrets.ENV }}'
-          $workingFolder=".\prepSolution\"
+          $workingFolder='${{ github.event.inputs.solution-name }}'
           $solutionName='${{ github.event.inputs.solution-name }}'
           $zipFile = ".\$solutionName\$solutionName.zip"
           
