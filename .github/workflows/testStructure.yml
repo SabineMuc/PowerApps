@@ -1,5 +1,5 @@
 
-name: Get_Solution_And_Commit
+name: test_struct
 
 on:
   # Allows you to run this workflow manually from the Actions tab
