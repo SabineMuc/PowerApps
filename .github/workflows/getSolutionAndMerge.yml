@@ -56,6 +56,7 @@ jobs:
           }
           $WorkingDirRepo = "${{ github.workspace }}/${{ env.WORKING_DIR_REPO }}"
           $ChangedFilesDir = "${{ github.workspace }}/${{ env.CHANGED_FILES_DIR }}"
+          dir
           .\integrated.ps1 -WorkingDirRepo $WorkingDirRepo -ChangedFilesDir $ChangedFilesDir
 
           
