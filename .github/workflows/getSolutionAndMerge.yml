@@ -40,11 +40,11 @@ jobs:
           $solutionName='${{ github.event.inputs.solution-name }}'
           $zipFile = ".\$solutionName\$solutionName.zip"
           
-          pac solution export --name $solutionName --path .\$solutionName --overwrite
+          pac solution export --name $solutionName --path $workingFolder --overwrite
           #unpack solution
           pac solution unpack --zipfile $zipFile --folder $workingFolder
           
-          $directory = "."
+          $directory = ".\$workingFolder"
           # Use Get-ChildItem to find all .msapp files
           $msappFiles = Get-ChildItem -Path $directory -Recurse -Filter *.msapp
           
@@ -57,7 +57,7 @@ jobs:
           $WorkingDirRepo = "${{ github.workspace }}/${{ env.WORKING_DIR_REPO }}"
           $ChangedFilesDir = "${{ github.workspace }}/${{ env.CHANGED_FILES_DIR }}"
           dir
-          .\.github\workflows\integrated.ps1 -WorkingDirRepo $WorkingDirRepo -ChangedFilesDir $ChangedFilesDir
+          .\${{ env.WORKING_DIR_REPO }}\.github\workflows\integrated.ps1 -WorkingDirRepo $WorkingDirRepo -ChangedFilesDir $ChangedFilesDir
 
           
       - name: commit files
