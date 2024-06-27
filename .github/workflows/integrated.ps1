@@ -97,18 +97,6 @@ function RemoveDeletedFiles {
     }
 }
 
-# Ensure the Git repository directory exists
-if (-Not (Test-Path -Path $GitRepoDir)) {
-    Write-Error "Git repository directory does not exist: $GitRepoDir"
-    exit 1
-}
-
-# Ensure the changes directory exists
-if (-Not (Test-Path -Path $ChangesDir)) {
-    Write-Error "Changes directory does not exist: $ChangesDir"
-    exit 1
-}
-
 # Remove deleted files
 RemoveDeletedFiles -SourceDir $ChangesDir -TargetDir $GitRepoDir
 
