@@ -57,7 +57,8 @@ jobs:
           $WorkingDirRepo = "${{ github.workspace }}/${{ env.WORKING_DIR_REPO }}"
           $ChangedFilesDir = "${{ github.workspace }}/${{ env.CHANGED_FILES_DIR }}"
           dir
-          Write-Host "call script "          
+          Write-Host "call script "
+          #.\${{ env.WORKING_DIR_REPO }}\.github\workflows\integrated.ps1 -WorkingDirRepo $WorkingDirRepo -ChangedFilesDir $ChangedFilesDir
           Write-Host "after"
           
       - name: List all files and folders
