@@ -9,6 +9,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Greet someone
-        uses: ./flow1/action
+        uses: ./flow1
         with:
           who-to-greet: "everyone"
