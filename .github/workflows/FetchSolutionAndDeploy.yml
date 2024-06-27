@@ -31,7 +31,7 @@ jobs:
       # create solution
       - name: create solution
         run: |      
-          dir /A-D /S /B
+          dir
           pac auth create --applicationId ${{ secrets.APP_ID }} --clientSecret '${{ secrets.CLIENT_SECRET }}' -t '${{ secrets.TENANT_ID }}' --environment '${{ secrets.ENV }}'
           
           $rootDirectory = '${{ github.event.inputs.solution-name }}'
@@ -51,7 +51,7 @@ jobs:
               Write-Host "The 'CanvasApps' directory does not exist in '$rootDirectory'."
           }
           
-          $workingFolder=".\prepSolution\"
+          $workingFolder='${{ github.event.inputs.solution-name }}'
           $zipFile = ".\finalSolution.zip"
           pac solution pack --zipfile $zipFile --folder $workingFolder
           
