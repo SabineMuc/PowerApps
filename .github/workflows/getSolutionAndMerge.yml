@@ -73,7 +73,7 @@ jobs:
           
       - name: commit files
         run: |
-          dir
+          cd .\'${{ env.WORKING_DIR_REPO }}'
           git config --global user.email "Sabine.Franz@capgemini.com"
           git config --global user.name "Sabine"
           git pull
