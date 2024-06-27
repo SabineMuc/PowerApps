@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: Create_Solution
+name: Fetch_Solution_And_Deploy
 
 # Controls when the workflow will run
 on:
