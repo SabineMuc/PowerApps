@@ -9,6 +9,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Greet someone
-        uses: yankeexe/actions-hello-world@main
+        uses: ./flow1/action
         with:
           who-to-greet: "everyone"
