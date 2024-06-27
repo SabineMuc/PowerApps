@@ -1,18 +1,19 @@
 
 name: test_struct
 
-on:
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
-  
-jobs:
-  build:
-    runs-on: windows-latest
+on: [push]
 
+jobs:
+  hello_world_job:
+    runs-on: ubuntu-latest
+    name: A job to say hello
     steps:
-      # This step checks out a copy of your repository.
-      - name: My first step - check out repository
-        uses: actions/checkout@v4
-      # This step references the directory that contains the action.
-      - name: Use local hello-world-action
-        uses: ./.github/workflows/flow1
+      - uses: actions/checkout@v4
+      - id: foo
+        uses: actions/hello-world-composite-action@v1
+        with:
+          who-to-greet: 'Mona the Octocat'
+      - run: echo random-number "$RANDOM_NUMBER"
+        shell: bash
+        env:
+          RANDOM_NUMBER: ${{ steps.foo.outputs.random-number }}
