@@ -1,8 +1,0 @@
-Screen1 As screen:
-
-    Label1 As label:
-        Text: ="11111111_greeting from git"
-        X: =40
-        Y: =40
-        ZIndex: =1
-
