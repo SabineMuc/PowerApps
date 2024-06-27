@@ -1,0 +1,70 @@
+name: Get_Solution_And_MERGE
+
+on:
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+    inputs:
+      solution-name: 
+        required: true
+      dynamic_branch:
+        description: Select branch
+        required: true
+        type: dynamic_branch
+        default: main
+
+jobs:
+  build:
+    runs-on: windows-latest
+    
+    env:
+      WORKING_DIR_REPO: workingDirRepo
+      CHANGED_FILES_DIR: changedFiles
+      
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          path: ${{ env.WORKING_DIR_REPO }} 
+
+      # install pac
+      - name: install pac
+        run: |
+          dotnet tool install --global Microsoft.PowerApps.CLI.Tool   
+          
+      # get solution from environment and commit to environment
+      - name: create solution
+        run: |       
+          pac auth create --applicationId ${{ secrets.APP_ID }} --clientSecret '${{ secrets.CLIENT_SECRET }}' -t '${{ secrets.TENANT_ID }}' --environment '${{ secrets.ENV }}'
+          $workingFolder=${{ env.CHANGED_FILES_DIR }} 
+          $solutionName='${{ github.event.inputs.solution-name }}'
+          $zipFile = ".\$solutionName\$solutionName.zip"
+          
+          pac solution export --name $solutionName --path .\$solutionName --overwrite
+          #unpack solution
+          pac solution unpack --zipfile $zipFile --folder $workingFolder
+          
+          $directory = "."
+          # Use Get-ChildItem to find all .msapp files
+          $msappFiles = Get-ChildItem -Path $directory -Recurse -Filter *.msapp
+          
+          # Iterate through each file and write the name to the console
+          foreach ($file in $msappFiles) {
+              $filePathWithoutExtension = [System.IO.Path]::Combine($file.DirectoryName, [System.IO.Path]::GetFileNameWithoutExtension($file.Name))
+              pac canvas unpack --msapp $file --sources "$filePathWithoutExtension"
+              Remove-Item $file.FullName -Force
+          }
+          $WorkingDirRepo = "${{ github.workspace }}/${{ env.WORKING_DIR_REPO }}"
+          $ChangedFilesDir = "${{ github.workspace }}/${{ env.CHANGED_FILES_DIR }}"
+          .\Copy-ChangedFiles.ps1 -WorkingDirRepo $WorkingDirRepo -ChangedFilesDir $ChangedFilesDir
+
+          
+      - name: commit files
+        run: |
+          dir
+          git config --global user.email "Sabine.Franz@capgemini.com"
+          git config --global user.name "Sabine"
+          git pull
+          git add .
+          git commit -m "generate solution"
+          git push origin main
