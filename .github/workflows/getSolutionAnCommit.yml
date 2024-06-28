@@ -42,8 +42,8 @@ jobs:
           dir
           git config --global user.email "Sabine.Franz@capgemini.com"
           git config --global user.name "Sabine"
-          git pull          
           git checkout main
+          git pull --rebase         
           git add .
           git status
           git commit -m "generate solution"
