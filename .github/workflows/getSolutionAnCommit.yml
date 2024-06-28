@@ -35,18 +35,8 @@ jobs:
           
           pac solution export --name $solutionName --path .\$solutionName --overwrite
           #unpack solution
-          pac solution unpack --zipfile $zipFile --folder $workingFolder
-          
-          $directory = "."
-          # Use Get-ChildItem to find all .msapp files
-          $msappFiles = Get-ChildItem -Path $directory -Recurse -Filter *.msapp
-          
-          # Iterate through each file and write the name to the console
-          foreach ($file in $msappFiles) {
-              $filePathWithoutExtension = [System.IO.Path]::Combine($file.DirectoryName, [System.IO.Path]::GetFileNameWithoutExtension($file.Name))
-              pac canvas unpack --msapp $file --sources "$filePathWithoutExtension"
-              Remove-Item $file.FullName -Force
-          }          
+          pac solution unpack --zipfile $zipFile --folder $workingFolder --processCanvasApps
+      
       - name: commit files
         run: |
           dir
