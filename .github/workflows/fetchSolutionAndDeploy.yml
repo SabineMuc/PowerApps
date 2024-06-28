@@ -34,26 +34,11 @@ jobs:
           dir
           pac auth create --applicationId ${{ secrets.APP_ID }} --clientSecret '${{ secrets.CLIENT_SECRET }}' -t '${{ secrets.TENANT_ID }}' --environment '${{ secrets.ENV }}'
           
-          $rootDirectory = '${{ github.event.inputs.solution-name }}'
-          # Construct the path to the "CanvasApps" directory
-          $canvasAppsDirectory = Join-Path -Path $rootDirectory -ChildPath "CanvasApps"
-          
-          # Check if the "CanvasApps" directory exists
-          if (Test-Path -Path $canvasAppsDirectory -PathType Container) {
-              # Get all immediate directories within "CanvasApps"
-              $directories = Get-ChildItem -Path $canvasAppsDirectory -Directory
-          
-              # Output each directory path
-              foreach ($dir in $directories) {
-                  pac canvas pack --msapp "$dir.msapp" --sources $dir.FullName
-              }
-          } else {
-              Write-Host "The 'CanvasApps' directory does not exist in '$rootDirectory'."
-          }
+
           
           $workingFolder='${{ github.event.inputs.solution-name }}'
           $zipFile = ".\finalSolution.zip"
-          pac solution pack --zipfile $zipFile --folder $workingFolder
+          pac solution pack --zipfile $zipFile --folder $workingFolder --processCanvasApps
           
           
           pac solution import --path $zipFile --force-overwrite
