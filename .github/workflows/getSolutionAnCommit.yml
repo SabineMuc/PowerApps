@@ -42,10 +42,10 @@ jobs:
           dir
           git config --global user.email "Sabine.Franz@capgemini.com"
           git config --global user.name "Sabine"
-          git checkout main
-          git pull --rebase         
+          git checkout main     
           git add .
-          git status
+          git status          
+          git pull
           git commit -m "generate solution"
           git push -f origin main
 
