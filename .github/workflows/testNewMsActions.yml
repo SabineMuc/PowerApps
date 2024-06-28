@@ -25,9 +25,9 @@ on:
        default: solutions/
 env:
 #edit your values here
-  ENVIRONMENT_URL: '<ENVIRONMENTURL>'
-  CLIENT_ID: '<APPID>'
-  TENANT_ID: '<TENANT ID>'
+  ENVIRONMENT_URL: '${{ secrets.ENV }}'
+  CLIENT_ID: '${{ secrets.APP_ID }}'
+  TENANT_ID: '${{ secrets.TENANT_ID }}'
 permissions:
   contents: write
 jobs:
@@ -47,7 +47,7 @@ jobs:
       with:
         environment-url: ${{env.ENVIRONMENT_URL}}
         app-id: ${{env.CLIENT_ID}}
-        client-secret: ${{ secrets.PowerPlatformSPN }}
+        client-secret: ${{ secrets.CLIENT_SECRET }}
         tenant-id: ${{env.TENANT_ID}}
 
 
@@ -56,7 +56,7 @@ jobs:
       with:
         environment-url: ${{env.ENVIRONMENT_URL}}
         app-id: ${{env.CLIENT_ID}}
-        client-secret: ${{ secrets.PowerPlatformSPN }}
+        client-secret: ${{ secrets.CLIENT_SECRET }}
         tenant-id: ${{env.TENANT_ID}}
         solution-name: ${{ github.event.inputs.solution_name }}
         solution-output-file: ${{ github.event.inputs.solution_exported_folder}}/${{ github.event.inputs.solution_name }}.zip
