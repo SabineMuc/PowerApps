@@ -1,9 +1,0 @@
-Screen1 As screen:
-
-    Label1 As label:
-        Text: ="label from powerapp studio ... greeting from git"
-        Width: =371
-        X: =40
-        Y: =40
-        ZIndex: =1
-
