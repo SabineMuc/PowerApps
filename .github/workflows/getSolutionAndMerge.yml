@@ -68,7 +68,7 @@ jobs:
 
       - name: Show files and folders
         run: |
-          type files_and_folders.txt
+          dir /s
         shell: cmd
           
       - name: commit files
