@@ -41,6 +41,7 @@ jobs:
           pac solution export --name $solutionName --path .\$solutionName --overwrite
           #unpack solution
           pac solution unpack --zipfile $zipFile --folder $workingFolder --processCanvasApps
+          dir /s /b
       
       - name: commit files
         run: |
