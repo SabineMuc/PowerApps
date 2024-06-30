@@ -47,7 +47,7 @@ jobs:
         run: |
           echo ${{ github.workspace }}
           cd ${{ github.workspace }}
-          dir /s /b > files_and_folders.txt
+          dir /s /b
         shell: cmd
       
       - name: commit files
