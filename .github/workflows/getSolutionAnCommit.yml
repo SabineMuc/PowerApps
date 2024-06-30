@@ -16,6 +16,11 @@ jobs:
   build:
     runs-on: windows-latest
 
+    permissions:
+      # Give the default GITHUB_TOKEN write permission to commit and push the
+      # added or changed files to the repository.
+      contents: write
+      
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
@@ -48,4 +53,5 @@ jobs:
           git pull
           git commit -m "generate solution"
           git push -f origin main
+
 
