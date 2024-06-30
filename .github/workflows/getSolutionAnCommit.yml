@@ -41,11 +41,12 @@ jobs:
           pac solution export --name $solutionName --path .\$solutionName --overwrite
           #unpack solution
           pac solution unpack --zipfile $zipFile --folder $workingFolder --processCanvasApps
-          echo "path=$PWD" >> $GITHUB_OUTPUT
+          echo "path=${{ github.workspace }}" >> $GITHUB_OUTPUT
           
       - name: List all files and folders
         run: |
-          echo ${{ steps.vars.outputs.path }}
+          echo ${{ github.workspace }}
+          cd ${{ github.workspace }}
           dir /s /b > files_and_folders.txt
         shell: cmd
       
