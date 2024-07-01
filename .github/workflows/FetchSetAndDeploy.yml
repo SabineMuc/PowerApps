@@ -6,10 +6,9 @@ on:
     inputs:
       solution-name: 
         required: true
-      dynamic_branch:
+      branch:
         description: Select branch
         required: true
-        type: dynamic_branch
         default: main
 
 jobs:
@@ -31,7 +30,7 @@ jobs:
           $folderPath='.\${{ github.event.inputs.solution-name }}\organizationsettings\dd_branchName'
           $fileName='organizationsetting.xml'
           $childNodeName='value'
-          $newValue=${{ steps.extract_branch.outputs.branch }}
+          $newValue=${{ github.event.inputs.branch }}
           
           $xmlFilePath = Get-ChildItem -Path $folderPath -Recurse -Filter $fileName | Select-Object -ExpandProperty FullName -First 1
           [xml]$xml = Get-Content -Path $xmlFilePath
