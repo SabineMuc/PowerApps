@@ -90,28 +90,15 @@ jobs:
       - name: Copy content of folder 'mySolution' into 'repo'
         run: |
           cp -r ${{ github.event.inputs.solution-name }}/* repo/
-          cd repo
-          echo "checkout"
-          git checkout main        
-          echo "status 0"
-          git status     
-          echo "add"
-          git add .
-          echo "status 1"
-          git status     
-          #echo "pull"
-          #git pull origin ${{ github.event.inputs.branch-name }}
-          echo "status 2"
-          git status
-          echo "diff"
-          git diff
-          echo "commit"
-          git config --global user.email "Sabine.Franz@capgemini.com"
-          git config --global user.name "Sabine"
-          git commit -m 'gggg'
-          echo "push"
-          #git push -f origin ${{ github.event.inputs.branch-name }}
-          git push --recurse-submodules=check --progress "origin" refs/heads/main:refs/heads/main
+
+      - name: Merge remote branch
+        run: |
+          git fetch origin
+          git merge origin/${{ github.event.inputs.branch-name }}
+
+      - name: Commit and push changes
+        run: |
+          git push origin HEAD
 
       - name: List files with merge conflict markers
         run: |
