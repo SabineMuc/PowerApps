@@ -102,7 +102,9 @@ jobs:
           cp -r ${{ github.event.inputs.solution-name }}/* repo/
           cd repo
           git add .
-          git status      
+          git status     
+          git pull
+          git status
 
       - name: List files with merge conflict markers
         run: |
