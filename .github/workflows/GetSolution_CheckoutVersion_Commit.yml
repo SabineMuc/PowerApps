@@ -114,9 +114,10 @@ jobs:
         run: |
           cd repo
           git merge-base HEAD origin/${{ github.event.inputs.branch-name }} >/dev/null 2>&1
-          if [ $? -ne 0 ]; then
+          if ( $? -ne 0 ){
             echo "Merge conflict detected"
             exit 1
-          else
+          }
+          else {
             echo "No merge conflicts found"
-          fi
+          }
