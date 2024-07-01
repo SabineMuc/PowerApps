@@ -19,13 +19,8 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: ${{ github.event.inputs.branch }}
-      
-      - name: Extract branch name
-        shell: bash
-        run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
-        id: extract_branch          
 
-      - name: Change XML Value
+      - name: set branch name in environment variable
         run: |
           $folderPath='.\${{ github.event.inputs.solution-name }}\organizationsettings\dd_branchName'
           $fileName='organizationsetting.xml'
@@ -35,8 +30,37 @@ jobs:
           $xmlFilePath = Get-ChildItem -Path $folderPath -Recurse -Filter $fileName | Select-Object -ExpandProperty FullName -First 1
           [xml]$xml = Get-Content -Path $xmlFilePath
           
+          ${{ steps.extract_branch.outputs.branch }}
+          
+          # Find the node with the specified attribute value
+          $node = $xml.SelectSingleNode("//*[@settingdefinitionid.uniquename='dd_branchName']")
+          
+          # Output the found node
+          if ($node) {
+              $childNode = $node.SelectSingleNode($childNodeName)
+              if ($childNode) {
+                  $childNode.InnerText = $newValue
+                  Write-Host "Child node '$childNodeName' content set to '$newValue'."
+              } else {
+                  Write-Host "Child node '$childNodeName' not found."
+              }
+          } else {
+              Write-Host "Node with attribute settingdefinitionid.uniquename='$nodeName' not found."
+          }
+          $xml.Save($xmlFilePath)
           $xmlContent=Get-Content $xmlFilePath
           $xmlContent
+## TODO: solution prefix dynamisch machen
+      - name: set commit reference in environment variable
+        run: |
+          $folderPath='.\${{ github.event.inputs.solution-name }}\organizationsettings\dd_commitReference'
+          $fileName='organizationsetting.xml'
+          $childNodeName='value'
+          $newValue=$(git rev-parse --short "$GITHUB_SHA")
+          
+          $xmlFilePath = Get-ChildItem -Path $folderPath -Recurse -Filter $fileName | Select-Object -ExpandProperty FullName -First 1
+          [xml]$xml = Get-Content -Path $xmlFilePath
+          
           ${{ steps.extract_branch.outputs.branch }}
           
           # Find the node with the specified attribute value
