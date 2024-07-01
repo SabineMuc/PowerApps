@@ -76,8 +76,7 @@ jobs:
           $node = $xml.SelectSingleNode("//value")
           
           $node.innerText
-          echo "commitReference=$($node.innerText)" >> $GITHUB_OUTPUT
-          echo "commitReference=$node.innerText" >> $GITHUB_ENV
+          "commitReference=$($node.innerText)" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
           
 
       - name: testOutput
@@ -86,3 +85,4 @@ jobs:
         run: |
           Write-Output "The selected color is $env:branch"
           Write-Output "${{ steps.extractRepoValues.outputs.branch }}"
+          Write-Output "${{ steps.extractRepoValues.outputs.commitReference }}"
