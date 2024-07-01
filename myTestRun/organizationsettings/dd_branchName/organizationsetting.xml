@@ -1,4 +1,4 @@
 <organizationsetting settingdefinitionid.uniquename="dd_branchName">
   <iscustomizable>1</iscustomizable>
-  <value>envSettingTest</value>
+  <value>GreetingFromGit</value>
 </organizationsetting>
