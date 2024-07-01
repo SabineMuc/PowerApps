@@ -100,7 +100,9 @@ jobs:
           cd repo
           git fetch origin
           git status
-          git merge origin/${{ github.event.inputs.branch-name }}
+          git merge origin/${{ github.event.inputs.branch-name }}          
+          git add .
+          git commit -m "Updates 2"
           git status
 
       - name: Commit and push changes
