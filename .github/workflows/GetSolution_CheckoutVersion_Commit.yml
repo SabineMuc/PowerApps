@@ -22,12 +22,22 @@ jobs:
       contents: write
       
     steps:
+      - name: Set color
+        id: color-selector
+        run: |
+            "SELECTED_COLOR=green" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
+      - name: Get color
+        env:
+          SELECTED_COLOR: ${{ steps.color-selector.outputs.SELECTED_COLOR }}
+        run: Write-Output "The selected color is $env:SELECTED_COLOR"
+
+    
       - name: Set multiple variables
         run: |
           $sum=$((1 + 2))
           $result=$((1 + 3))
-          echo "sum=$sum" >> $GITHUB_ENV
-          echo "result=$result" >> $GITHUB_ENV
+          echo "sum=$sum" >> $env:GITHUB_OUTPUT
+          echo "result=$result" >> $env:GITHUB_OUTPUT
 
       - name: Use the sum variable
         run: |
@@ -89,10 +99,3 @@ jobs:
         run: |
           echo '${{ steps.extractRepoValues.outputs.branch }}'
           echo '${{ env.commitReference }}'
-          
-      - name: Set color
-        id: random-color-generator
-        run: echo "SELECTED_COLOR=green" >> $GITHUB_OUTPUT
-      - name: Get color
-        run: echo "The selected color is ${{ steps.random-color-generator.outputs.SELECTED_COLOR }}"          
-
