@@ -31,22 +31,6 @@ jobs:
         env:
           SELECTED_COLOR: ${{ steps.color-selector.outputs.SELECTED_COLOR }}
         run: Write-Output "The selected color is $env:SELECTED_COLOR"
-
-    
-      - name: Set multiple variables
-        run: |
-          $sum=$((1 + 2))
-          $result=$((1 + 3))
-          echo "sum=$sum" >> $env:GITHUB_OUTPUT
-          echo "result=$result" >> $env:GITHUB_OUTPUT
-
-      - name: Use the sum variable
-        run: |
-          echo "The sum of 1 + 2 is ${{ env.sum }}"
-
-      - name: Use the result variable
-        run: |
-          echo "The result of (1 + 2) * 3 is ${{ env.result }}"
     
       # install pac
       - name: install pac
@@ -79,7 +63,7 @@ jobs:
           $node = $xml.SelectSingleNode("//value")
           
           $node.innerText
-          "branch=$node.innerText" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
+          "branch=$($node.innerText)" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
           
           $folderPath='.\${{ github.event.inputs.solution-name }}\organizationsettings\dd_commitReference'
           $fileName='organizationsetting.xml'
@@ -101,4 +85,4 @@ jobs:
           branch: ${{ steps.extractRepoValues.outputs.branch }}
         run: |
           Write-Output "The selected color is $env:branch"
-          Write-Output '${{ steps.extractRepoValues.outputs.branch }}'
+          Write-Output "${{ steps.extractRepoValues.outputs.branch }}"
