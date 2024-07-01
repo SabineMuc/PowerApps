@@ -104,7 +104,7 @@ jobs:
           git add .
           git status     
           git checkout ${{ github.event.inputs.branch-name }}
-          git pull
+          git pull origin ${{ github.event.inputs.branch-name }}
           git status
           git diff
           git config --global user.email "Sabine.Franz@capgemini.com"
