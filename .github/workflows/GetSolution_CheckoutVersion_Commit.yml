@@ -1,1 +1,54 @@
+name: Get_Solution_And_Commit
 
+on:
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+    inputs:
+      solution-name: 
+        required: true
+      dynamic_branch:
+        description: Select branch
+        required: true
+        type: dynamic_branch
+        default: main
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    permissions:
+      # Give the default GITHUB_TOKEN write permission to commit and push the
+      # added or changed files to the repository.
+      contents: write
+      
+    steps:
+      # install pac
+      - name: install pac
+        run: |
+          dotnet tool install --global Microsoft.PowerApps.CLI.Tool   
+          
+      - name: export solution
+        run: |       
+          pac auth create --applicationId ${{ secrets.APP_ID }} --clientSecret '${{ secrets.CLIENT_SECRET }}' -t '${{ secrets.TENANT_ID }}' --environment '${{ secrets.ENV }}'
+          $workingFolder='${{ github.event.inputs.solution-name }}'
+          $solutionName='${{ github.event.inputs.solution-name }}'
+          $zipFile = ".\$solutionName\$solutionName.zip"
+          
+          pac solution export --name $solutionName --path .\$solutionName --overwrite
+          #unpack solution
+          pac solution unpack --zipfile $zipFile --folder $workingFolder --processCanvasApps
+          echo "path=${{ github.workspace }}" >> $GITHUB_OUTPUT
+
+      - name: get branch and commit id
+        run: |
+          $folderPath='.\${{ github.event.inputs.solution-name }}\organizationsettings\dd_branchName'
+          $fileName='organizationsetting.xml'
+          $childNodeName='value'
+          
+          $xmlFilePath = Get-ChildItem -Path $folderPath -Recurse -Filter $fileName | Select-Object -ExpandProperty FullName -First 1
+          [xml]$xml = Get-Content -Path $xmlFilePath
+          
+          # Find the node with the specified attribute value
+          $node = $xml.SelectSingleNode("//value")
+          
+          $node.innerText
