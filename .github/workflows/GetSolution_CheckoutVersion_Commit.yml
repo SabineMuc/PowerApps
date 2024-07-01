@@ -22,16 +22,6 @@ jobs:
       contents: write
       
     steps:
-      - name: Set color
-        id: color-selector
-        run: |
-            $color='blue'
-            "SELECTED_COLOR=$color" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
-      - name: Get color
-        env:
-          SELECTED_COLOR: ${{ steps.color-selector.outputs.SELECTED_COLOR }}
-        run: Write-Output "The selected color is $env:SELECTED_COLOR"
-    
       # install pac
       - name: install pac
         run: |
