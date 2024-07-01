@@ -31,3 +31,6 @@ jobs:
           # fetch-depth: 0
           # Or to fetch only the single commit
           # fetch-depth: 1
+      - name: deploy solution
+        run: |
+          git status
