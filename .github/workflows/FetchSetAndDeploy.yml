@@ -1,1 +1,62 @@
+name: Fetch_SET_DEPLOY
 
+on:
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+    inputs:
+      solution-name: 
+        required: true
+      dynamic_branch:
+        description: Select branch
+        required: true
+        type: dynamic_branch
+        default: main
+
+jobs:
+  deploy-solution:
+    runs-on: windows-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.branch }}
+      
+      - name: Extract branch name
+        shell: bash
+        run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
+        id: extract_branch          
+
+      - name: Change XML Value
+        run: |
+          $folderPath='.\${{ github.event.inputs.solution-name }}\organizationsettings\dd_branchName'
+          $fileName='organizationsetting.xml'
+          $childNodeName='value'
+          $newValue=${{ steps.extract_branch.outputs.branch }}
+          
+          $xmlFilePath = Get-ChildItem -Path $folderPath -Recurse -Filter $fileName | Select-Object -ExpandProperty FullName -First 1
+          [xml]$xml = Get-Content -Path $xmlFilePath
+          
+          # Find the node with the specified attribute value
+          $node = $xml.SelectSingleNode("//*[@settingdefinitionid.uniquename='dd_branchName']")
+          
+          # Output the found node
+          if ($node) {
+              $childNode = $node.SelectSingleNode($childNodeName)
+              if ($childNode) {
+                  $childNode.InnerText = $newValue
+                  Write-Host "Child node '$childNodeName' content set to '$newValue'."
+              } else {
+                  Write-Host "Child node '$childNodeName' not found."
+              }
+          } else {
+              Write-Host "Node with attribute settingdefinitionid.uniquename='$nodeName' not found."
+          }
+          $xml.Save($xmlFilePath)
+          
+      - name: Pack PowerApps Solution
+        run: |          
+          pac auth create --applicationId ${{ secrets.APP_ID }} --clientSecret '${{ secrets.CLIENT_SECRET }}' -t '${{ secrets.TENANT_ID }}' --environment '${{ secrets.ENV }}'         
+          $workingFolder='${{ github.event.inputs.solution-name }}'
+          $zipFile = ".\finalSolution.zip"
+          pac solution pack --zipfile $zipFile --folder $workingFolder --processCanvasApps
+          pac solution import --path $zipFile --force-overwrite          
