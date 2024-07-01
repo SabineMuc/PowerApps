@@ -30,7 +30,7 @@ jobs:
           $folderPath='.\${{ github.event.inputs.solution-name }}\organizationsettings\dd_branchName'
           $fileName='organizationsetting.xml'
           $childNodeName='value'
-          $newValue=${{ steps.extract_branch.outputs.branch }}
+          $newValue=$(git branch --show-current)
           
           $xmlFilePath = Get-ChildItem -Path $folderPath -Recurse -Filter $fileName | Select-Object -ExpandProperty FullName -First 1
           [xml]$xml = Get-Content -Path $xmlFilePath
