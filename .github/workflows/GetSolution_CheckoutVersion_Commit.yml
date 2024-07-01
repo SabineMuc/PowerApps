@@ -53,7 +53,7 @@ jobs:
           $node = $xml.SelectSingleNode("//value")
           
           $node.innerText
-          echo "branch=$($node.innerText)" >> $GITHUB_OUTPUT
+          #echo "branch=$($node.innerText)" >> $GITHUB_OUTPUT
           
           $folderPath='.\${{ github.event.inputs.solution-name }}\organizationsettings\dd_commitReference'
           $fileName='organizationsetting.xml'
@@ -67,6 +67,8 @@ jobs:
           
           $node.innerText
           echo "commitReference=$($node.innerText)" >> $GITHUB_OUTPUT
+          echo "::set-output commitReference=result::$node.innerText"
+          
 
       - name: testOutput
         run: |
