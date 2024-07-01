@@ -90,9 +90,9 @@ jobs:
       - name: Checkout branch at specific commit
         uses: actions/checkout@v2
         with:
-          ref: ${{ steps.extractRepoValues.outputs.branch }}
-          path: repo
-
+          ref: ${{ steps.extractRepoValues.outputs.branch }}/${{ steps.extractRepoValues.outputs.commitReference }}
+          fetch-depth: 0
+          
       - name: Reset to specific commit
         run: |
           cd repo
