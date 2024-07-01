@@ -1,4 +1,4 @@
-name: Get_Solution_And_Commit
+name: Get_Solution_Get_Branch_And_Commit
 
 on:
   # Allows you to run this workflow manually from the Actions tab
