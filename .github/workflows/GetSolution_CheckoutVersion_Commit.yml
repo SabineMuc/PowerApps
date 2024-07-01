@@ -101,15 +101,23 @@ jobs:
         run: |
           cp -r ${{ github.event.inputs.solution-name }}/* repo/
           cd repo
-          git add .
-          git status     
+          echo "checkout"
           git checkout ${{ github.event.inputs.branch-name }}
+          echo "add"
+          git add .
+          echo "status 1"
+          git status     
+          echo "pull"
           git pull origin ${{ github.event.inputs.branch-name }}
+          echo "status 2"
           git status
+          echo "diff"
           git diff
+          echo "commit"
           git config --global user.email "Sabine.Franz@capgemini.com"
           git config --global user.name "Sabine"
           git commit -m 'gggg'
+          echo "push"
           git push -f origin ${{ github.event.inputs.branch-name }}
 
       - name: List files with merge conflict markers
