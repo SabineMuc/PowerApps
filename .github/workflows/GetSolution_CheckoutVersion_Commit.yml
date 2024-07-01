@@ -92,7 +92,7 @@ jobs:
           cp -r ${{ github.event.inputs.solution-name }}/* repo/
           cd repo
           echo "checkout"
-          git checkout ${{ github.event.inputs.branch-name }}          
+          git checkout main        
           echo "status 0"
           git status     
           echo "add"
@@ -111,7 +111,7 @@ jobs:
           git commit -m 'gggg'
           echo "push"
           #git push -f origin ${{ github.event.inputs.branch-name }}
-          git push --recurse-submodules=check --progress "origin" refs/heads/${{ github.event.inputs.branch-name }}:refs/heads/${{ github.event.inputs.branch-name }}
+          git push --recurse-submodules=check --progress "origin" refs/heads/main:refs/heads/main
 
       - name: List files with merge conflict markers
         run: |
