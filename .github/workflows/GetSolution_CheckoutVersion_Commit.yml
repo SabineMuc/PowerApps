@@ -53,7 +53,7 @@ jobs:
           $node = $xml.SelectSingleNode("//value")
           
           $node.innerText
-          echo "branch=$node.innerText" >> $GITHUB_OUTPUT
+          echo "branch=$(node.innerText)" >> $GITHUB_OUTPUT
           
           $folderPath='.\${{ github.event.inputs.solution-name }}\organizationsettings\dd_commitReference'
           $fileName='organizationsetting.xml'
@@ -66,10 +66,16 @@ jobs:
           $node = $xml.SelectSingleNode("//value")
           
           $node.innerText
-          echo "commitReference=$node.innerText" >> $GITHUB_OUTPUT
+          echo "commitReference=$($node.innerText)" >> $GITHUB_OUTPUT
 
       - name: testOutput
         run: |
           echo '${{ steps.extractRepoValues.outputs.branch }}'
           echo '${{ steps.extractRepoValues.outputs.commitReference }}'
+          
+      - name: Set color
+        id: random-color-generator
+        run: echo "SELECTED_COLOR=green" >> $GITHUB_OUTPUT
+      - name: Get color
+        run: echo "The selected color is ${{ steps.random-color-generator.outputs.SELECTED_COLOR }}"          
 
