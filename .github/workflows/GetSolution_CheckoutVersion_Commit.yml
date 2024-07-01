@@ -93,11 +93,13 @@ jobs:
 
       - name: Merge remote branch
         run: |
+          cd repo
           git fetch origin
           git merge origin/${{ github.event.inputs.branch-name }}
 
       - name: Commit and push changes
         run: |
+          cd repo
           git push origin HEAD
 
       - name: List files with merge conflict markers
