@@ -90,21 +90,12 @@ jobs:
       - name: Checkout branch at specific commit
         uses: actions/checkout@v2
         with:
-          ref: ${{ steps.extractRepoValues.outputs.branch }}
+          ref: ${{ steps.extractRepoValues.outputs.commitReference }}
           path: repo
           # Optionally, you can use the following if you want to fetch all history
           # fetch-depth: 0
           # Or to fetch only the single commit
-          # fetch-depth: 1
-
-      - name: Fetch all history for proper branch reference
-        run: |
-          cd repo
-          git fetch --depth=1 origin +refs/heads/${{ steps.extractRepoValues.outputs.branch }}:refs/remotes/origin/${{ steps.extractRepoValues.outputs.branch }}
-
-      - name: Checkout branch at specific commit
-        run: git checkout ${{ steps.extractRepoValues.outputs.commitReference }}
-        working-directory: repo       
+          # fetch-depth: 1     
 
       - name: Copy content of folder 'mySolution' into 'repo'
         run: |
