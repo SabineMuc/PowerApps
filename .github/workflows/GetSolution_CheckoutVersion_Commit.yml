@@ -101,15 +101,9 @@ jobs:
       - name: Merge remote branch
         run: |
           cd repo
-          git checkout -B "main" "origin/main"  
-          git status        
-          git pull origin main         
-          git status
-          git add .
-          git config --global user.email "Sabine.Franz@capgemini.com"
-          git config --global user.name "Sabine"
-          git commit -m "Updates 2"
-          
+          git branch alt-history
+          git checkout alt-history
+          git status                  
           git rev-parse --abbrev-ref HEAD
           git push --progress "origin" main
 
