@@ -110,9 +110,10 @@ jobs:
         id: check-conflicts
         run: |
           cd repo
-          if git diff --quiet --exit-code; then
-            echo "No conflicts found"
-          else
-            echo "Merge conflicts detected"
+          git merge-base HEAD origin/${{ github.event.inputs.branch-name }} >/dev/null 2>&1
+          if [ $? -ne 0 ]; then
+            echo "Merge conflict detected"
             exit 1
+          else
+            echo "No merge conflicts found"
           fi
