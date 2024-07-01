@@ -105,12 +105,12 @@ jobs:
           git status        
           git pull origin main         
           git status
-
-      - name: Commit and push changes
-        run: |
-          cd repo
-          git rev-parse --abbrev-ref HEAD
+          git add .
+          git config --global user.email "Sabine.Franz@capgemini.com"
+          git config --global user.name "Sabine"
+          git commit -m "Updates 2"
           
+          git rev-parse --abbrev-ref HEAD
           git push --progress "origin" main
 
       - name: List files with merge conflict markers
