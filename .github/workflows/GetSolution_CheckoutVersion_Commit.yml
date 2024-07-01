@@ -88,9 +88,10 @@ jobs:
           # fetch-depth: 1     
 
       - name: Copy content of folder 'mySolution' into 'repo'
-        run: |
+        run: |              
           cp -r ${{ github.event.inputs.solution-name }}/* repo/
-          cd repo
+          cd repo          
+          git status
           git add .
           git config --global user.email "Sabine.Franz@capgemini.com"
           git config --global user.name "Sabine"
