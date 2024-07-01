@@ -91,7 +91,18 @@ jobs:
         uses: actions/checkout@v2
         with:
           ref: ${{ steps.extractRepoValues.outputs.branch }}
+          path: repo
 
       - name: Reset to specific commit
         run: |
+          cd repo
           git reset --hard ${{ steps.extractRepoValues.outputs.commitReference }}
+
+      - name: Copy content of folder 'mySolution' into 'repo'
+        run: |
+          cp -r ${{ github.event.inputs.solution-name }}/* repo/          
+
+      - name: Show changes in 'repo'
+        run: |
+          cd repo
+          git status      
