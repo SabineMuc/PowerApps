@@ -105,7 +105,9 @@ jobs:
           git status      
 
       - name: List files with merge conflict markers
-        run: git --no-pager grep "<<<<<<<" ":(exclude).github/" || true
+        run: |
+          cd repo
+          git --no-pager grep "<<<<<<<" ":(exclude).github/" || true
           
       - name: Check for merge conflicts
         id: check-conflicts
