@@ -101,9 +101,9 @@ jobs:
       - name: Merge remote branch
         run: |
           cd repo
-          git checkout ${{ github.event.inputs.branch-name }}     
+          git checkout -B "main" "origin/main"  
           git status        
-          git pull          
+          git pull origin main         
           git status
 
       - name: Commit and push changes
