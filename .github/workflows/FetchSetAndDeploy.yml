@@ -53,6 +53,11 @@ jobs:
           }
           $xml.Save($xmlFilePath)
           
+      # install pac
+      - name: install pac
+        run: |
+          dotnet tool install --global Microsoft.PowerApps.CLI.Tool     
+          
       - name: Pack PowerApps Solution
         run: |          
           pac auth create --applicationId ${{ secrets.APP_ID }} --clientSecret '${{ secrets.CLIENT_SECRET }}' -t '${{ secrets.TENANT_ID }}' --environment '${{ secrets.ENV }}'         
