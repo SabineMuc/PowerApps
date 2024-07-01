@@ -1,1 +1,33 @@
+name: try
+on:
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+    inputs:
+      solution-name: 
+        required: true
+      dynamic_branch:
+        description: Select branch
+        required: true
+        type: dynamic_branch
+        default: main
 
+jobs:
+  build:
+    runs-on: windows-latest
+
+    permissions:
+      # Give the default GITHUB_TOKEN write permission to commit and push the
+      # added or changed files to the repository.
+      # da12d39375e8f2646ba040cc0712d36c33f84a20
+      contents: write
+      
+    steps:
+      - name: Checkout branch at specific commit
+        uses: actions/checkout@v2
+        with:
+          ref: da12d39375e8f2646ba040cc0712d36c33f84a20
+          path: repo
+          # Optionally, you can use the following if you want to fetch all history
+          # fetch-depth: 0
+          # Or to fetch only the single commit
+          # fetch-depth: 1
