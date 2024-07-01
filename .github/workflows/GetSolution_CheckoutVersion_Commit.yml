@@ -103,6 +103,7 @@ jobs:
           cd repo
           git add .
           git status     
+          git checkout ${{ github.event.inputs.branch-name }}
           git pull
           git status
 
