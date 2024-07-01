@@ -70,5 +70,6 @@ jobs:
 
       - name: testOutput
         run: |
-          ${{ steps.extractRepoValues.outputs.branch }}          
-          ${{ steps.extractRepoValues.outputs.commitReference }}
+          echo '${{ steps.extractRepoValues.outputs.branch }}'
+          echo '${{ steps.extractRepoValues.outputs.commitReference }}'
+
