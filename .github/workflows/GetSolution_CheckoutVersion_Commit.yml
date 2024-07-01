@@ -101,7 +101,7 @@ jobs:
       - name: Merge remote branch
         run: |
           cd repo
-          git checkout origin/${{ github.event.inputs.branch-name }}     
+          git checkout ${{ github.event.inputs.branch-name }}     
           git status        
           git pull          
           git status
