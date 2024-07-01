@@ -92,6 +92,8 @@ jobs:
           cp -r ${{ github.event.inputs.solution-name }}/* repo/
           cd repo
           git add .
+          git config --global user.email "Sabine.Franz@capgemini.com"
+          git config --global user.name "Sabine"
           git commit -m "Updates"
           git status
 
@@ -101,8 +103,11 @@ jobs:
           git fetch origin
           git status
           git merge origin/${{ github.event.inputs.branch-name }}          
-          git add .
+          git add .         
+          git config --global user.email "Sabine.Franz@capgemini.com"
+          git config --global user.name "Sabine"
           git commit -m "Updates 2"
+          
           git status
 
       - name: Commit and push changes
