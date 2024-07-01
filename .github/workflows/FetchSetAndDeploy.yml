@@ -52,6 +52,8 @@ jobs:
               Write-Host "Node with attribute settingdefinitionid.uniquename='$nodeName' not found."
           }
           $xml.Save($xmlFilePath)
+          $xmlContent=Get-Content $xmlFilePath
+          $xmlContent
           
       # install pac
       - name: install pac
