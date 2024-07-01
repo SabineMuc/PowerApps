@@ -107,6 +107,8 @@ jobs:
           git pull
           git status
           git diff
+          git config --global user.email "Sabine.Franz@capgemini.com"
+          git config --global user.name "Sabine"
           git commit -m 'gggg'
           git push
 
