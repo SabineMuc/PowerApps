@@ -106,3 +106,14 @@ jobs:
         run: |
           cd repo
           git status      
+          
+      - name: Check for merge conflicts
+        id: check-conflicts
+        run: |
+          cd repo
+          if git diff --quiet --exit-code; then
+            echo "No conflicts found"
+          else
+            echo "Merge conflicts detected"
+            exit 1
+          fi
