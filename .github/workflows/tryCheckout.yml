@@ -33,4 +33,5 @@ jobs:
           # fetch-depth: 1
       - name: deploy solution
         run: |
+          cd repo
           git status
