@@ -106,7 +106,9 @@ jobs:
       - name: Commit and push changes
         run: |
           cd repo
-          git push origin HEAD
+          git rev-parse --abbrev-ref HEAD
+          
+          git push --progress "origin" main
 
       - name: List files with merge conflict markers
         run: |
