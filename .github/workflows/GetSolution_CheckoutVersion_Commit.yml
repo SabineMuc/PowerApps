@@ -86,3 +86,12 @@ jobs:
           Write-Output "The selected color is $env:branch"
           Write-Output "${{ steps.extractRepoValues.outputs.branch }}"
           Write-Output "${{ steps.extractRepoValues.outputs.commitReference }}"
+
+      - name: Checkout branch at specific commit
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ steps.extractRepoValues.outputs.branch }}
+
+      - name: Reset to specific commit
+        run: |
+          git reset --hard ${{ steps.extractRepoValues.outputs.commitReference }}
