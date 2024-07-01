@@ -22,6 +22,21 @@ jobs:
       contents: write
       
     steps:
+      - name: Set multiple variables
+        run: |
+          sum=$((1 + 2))
+          result=$(( sum * 3 ))
+          echo "sum=$sum" >> $GITHUB_ENV
+          echo "result=$result" >> $GITHUB_ENV
+
+      - name: Use the sum variable
+        run: |
+          echo "The sum of 1 + 2 is ${{ env.sum }}"
+
+      - name: Use the result variable
+        run: |
+          echo "The result of (1 + 2) * 3 is ${{ env.result }}"
+    
       # install pac
       - name: install pac
         run: |
