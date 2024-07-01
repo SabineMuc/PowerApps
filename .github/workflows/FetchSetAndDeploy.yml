@@ -64,7 +64,7 @@ jobs:
           ${{ steps.extract_branch.outputs.branch }}
           
           # Find the node with the specified attribute value
-          $node = $xml.SelectSingleNode("//*[@settingdefinitionid.uniquename='dd_branchName']")
+          $node = $xml.SelectSingleNode("//*[@settingdefinitionid.uniquename='dd_commitReference']")
           
           # Output the found node
           if ($node) {
