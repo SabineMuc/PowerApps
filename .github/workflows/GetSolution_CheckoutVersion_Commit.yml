@@ -67,13 +67,13 @@ jobs:
           
           $node.innerText
           echo "commitReference=$($node.innerText)" >> $GITHUB_OUTPUT
-          echo "::set-output commitReference=result::$node.innerText"
+          echo "commitReference=$node.innerText" >> $GITHUB_ENV
           
 
       - name: testOutput
         run: |
           echo '${{ steps.extractRepoValues.outputs.branch }}'
-          echo '${{ steps.extractRepoValues.outputs.commitReference }}'
+          echo '${{ env.commitReference }}'
           
       - name: Set color
         id: random-color-generator
