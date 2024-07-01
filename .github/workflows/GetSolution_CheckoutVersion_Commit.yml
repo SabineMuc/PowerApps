@@ -96,7 +96,7 @@ jobs:
       - name: Reset to specific commit
         run: |
           cd repo
-          git branch -f ${{ steps.extractRepoValues.outputs.branch }} ${{ steps.extractRepoValues.outputs.commitReference }}
+          git branch ${{ steps.extractRepoValues.outputs.branch }} ${{ steps.extractRepoValues.outputs.commitReference }}
 
       - name: Copy content of folder 'mySolution' into 'repo'
         run: |
