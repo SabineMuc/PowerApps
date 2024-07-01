@@ -98,7 +98,7 @@ jobs:
           echo "status 1"
           git status     
           echo "pull"
-          git pull origin ${{ github.event.inputs.branch-name }}
+          git merge ${{ github.event.inputs.branch-name }}
           echo "status 2"
           git status
           echo "diff"
