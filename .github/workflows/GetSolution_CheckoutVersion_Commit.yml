@@ -106,6 +106,7 @@ jobs:
           git checkout ${{ github.event.inputs.branch-name }}
           git pull
           git status
+          git diff
 
       - name: List files with merge conflict markers
         run: |
