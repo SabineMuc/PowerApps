@@ -97,6 +97,8 @@ jobs:
           
 
       - name: testOutput
+        env:
+          branch: ${{ steps.extractRepoValues.outputs.branch }}
         run: |
-          ${{ steps.extractRepoValues.outputs.branch }}
-          echo '${{ env.commitReference }}'
+          Write-Output "The selected color is $env:branch"
+          Write-Output '${{ steps.extractRepoValues.outputs.branch }}'
