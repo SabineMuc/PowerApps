@@ -25,7 +25,8 @@ jobs:
       - name: Set color
         id: color-selector
         run: |
-            "SELECTED_COLOR=green" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
+            $color='blue'
+            "SELECTED_COLOR=$color" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
       - name: Get color
         env:
           SELECTED_COLOR: ${{ steps.color-selector.outputs.SELECTED_COLOR }}
