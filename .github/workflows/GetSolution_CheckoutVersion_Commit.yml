@@ -110,7 +110,7 @@ jobs:
           git config --global user.email "Sabine.Franz@capgemini.com"
           git config --global user.name "Sabine"
           git commit -m 'gggg'
-          git push
+          git push -f origin ${{ github.event.inputs.branch-name }}
 
       - name: List files with merge conflict markers
         run: |
