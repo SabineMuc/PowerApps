@@ -92,12 +92,15 @@ jobs:
           cp -r ${{ github.event.inputs.solution-name }}/* repo/
           git add .
           git commit -m "Updates"
+          git status
 
       - name: Merge remote branch
         run: |
           cd repo
           git fetch origin
+          git status
           git merge origin/${{ github.event.inputs.branch-name }}
+          git status
 
       - name: Commit and push changes
         run: |
