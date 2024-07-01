@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <CanvasApp xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <Name>dd_test1_59290</Name>
-  <AppVersion>2024-06-30T19:33:43Z</AppVersion>
+  <AppVersion>2024-07-01T06:42:48Z</AppVersion>
   <Status>Ready</Status>
   <CreatedByClientVersion>3.24063.22.0</CreatedByClientVersion>
   <MinClientVersion>3.24063.22.0</MinClientVersion>
@@ -10,8 +10,8 @@
   <GalleryItemId xsi:nil="true"></GalleryItemId>
   <BackgroundColor>RGBA(0,176,240,1)</BackgroundColor>
   <DisplayName>test1</DisplayName>
-  <Description xsi:nil="true"></Description>
-  <CommitMessage xsi:nil="true"></CommitMessage>
+  <Description></Description>
+  <CommitMessage></CommitMessage>
   <Publisher></Publisher>
   <AuthorizationReferences>[]</AuthorizationReferences>
   <ConnectionReferences>{}</ConnectionReferences>
