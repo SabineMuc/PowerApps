@@ -40,6 +40,7 @@ jobs:
           echo "path=${{ github.workspace }}" >> $GITHUB_OUTPUT
 
       - name: get branch and commit id
+        id: extractRepoValues
         run: |
           $folderPath='.\${{ github.event.inputs.solution-name }}\organizationsettings\dd_branchName'
           $fileName='organizationsetting.xml'
@@ -52,3 +53,22 @@ jobs:
           $node = $xml.SelectSingleNode("//value")
           
           $node.innerText
+          echo "branch=$node.innerText" >> $GITHUB_OUTPUT
+          
+          $folderPath='.\${{ github.event.inputs.solution-name }}\organizationsettings\dd_commitReference'
+          $fileName='organizationsetting.xml'
+          $childNodeName='value'
+          
+          $xmlFilePath = Get-ChildItem -Path $folderPath -Recurse -Filter $fileName | Select-Object -ExpandProperty FullName -First 1
+          [xml]$xml = Get-Content -Path $xmlFilePath
+          
+          # Find the node with the specified attribute value
+          $node = $xml.SelectSingleNode("//value")
+          
+          $node.innerText
+          echo "commitReference=$node.innerText" >> $GITHUB_OUTPUT
+
+      - name: testOutput
+        run: |
+          ${{ steps.extractRepoValues.outputs.branch }}          
+          ${{ steps.extractRepoValues.outputs.commitReference }}
