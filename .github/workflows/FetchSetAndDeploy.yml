@@ -35,6 +35,9 @@ jobs:
           $xmlFilePath = Get-ChildItem -Path $folderPath -Recurse -Filter $fileName | Select-Object -ExpandProperty FullName -First 1
           [xml]$xml = Get-Content -Path $xmlFilePath
           
+          $xmlContent=Get-Content $xmlFilePath
+          $xmlContent
+          
           # Find the node with the specified attribute value
           $node = $xml.SelectSingleNode("//*[@settingdefinitionid.uniquename='dd_branchName']")
           
