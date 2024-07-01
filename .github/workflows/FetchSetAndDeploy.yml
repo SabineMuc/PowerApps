@@ -56,7 +56,7 @@ jobs:
           $folderPath='.\${{ github.event.inputs.solution-name }}\organizationsettings\dd_commitReference'
           $fileName='organizationsetting.xml'
           $childNodeName='value'
-          $newValue=$(git rev-parse --short "$GITHUB_SHA")
+          $newValue=$(git log -n 1 --pretty=format:"%H" )
           
           $xmlFilePath = Get-ChildItem -Path $folderPath -Recurse -Filter $fileName | Select-Object -ExpandProperty FullName -First 1
           [xml]$xml = Get-Content -Path $xmlFilePath
