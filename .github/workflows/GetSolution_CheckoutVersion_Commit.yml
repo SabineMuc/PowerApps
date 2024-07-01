@@ -107,6 +107,8 @@ jobs:
           git pull
           git status
           git diff
+          git commit -m 'gggg'
+          git push
 
       - name: List files with merge conflict markers
         run: |
