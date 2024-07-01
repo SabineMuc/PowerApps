@@ -100,14 +100,9 @@ jobs:
       - name: Merge remote branch
         run: |
           cd repo
-          git fetch origin
-          git status
-          git merge origin/${{ github.event.inputs.branch-name }}          
-          git add .         
-          git config --global user.email "Sabine.Franz@capgemini.com"
-          git config --global user.name "Sabine"
-          git commit -m "Updates 2"
-          
+          git checkout origin/${{ github.event.inputs.branch-name }}     
+          git status        
+          git pull          
           git status
 
       - name: Commit and push changes
