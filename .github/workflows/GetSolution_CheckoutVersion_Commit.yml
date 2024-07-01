@@ -92,13 +92,15 @@ jobs:
           cp -r ${{ github.event.inputs.solution-name }}/* repo/
           cd repo
           echo "checkout"
-          git checkout ${{ github.event.inputs.branch-name }}
+          git checkout ${{ github.event.inputs.branch-name }}          
+          echo "status 0"
+          git status     
           echo "add"
           git add .
           echo "status 1"
           git status     
-          echo "pull"
-          git pull origin ${{ github.event.inputs.branch-name }}
+          #echo "pull"
+          #git pull origin ${{ github.event.inputs.branch-name }}
           echo "status 2"
           git status
           echo "diff"
