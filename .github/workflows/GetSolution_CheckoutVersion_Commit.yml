@@ -99,11 +99,9 @@ jobs:
 
       - name: Copy content of folder 'mySolution' into 'repo'
         run: |
-          cp -r ${{ github.event.inputs.solution-name }}/* repo/          
-
-      - name: Show changes in 'repo'
-        run: |
+          cp -r ${{ github.event.inputs.solution-name }}/* repo/
           cd repo
+          git add .
           git status      
           
       - name: Check for merge conflicts
